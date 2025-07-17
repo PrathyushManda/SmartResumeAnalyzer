@@ -3,7 +3,7 @@ import os
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def generate_tips(resume_text, jd_text):
+def generate_tips(resume_text: str, jd_text: str) -> str:
     prompt = f"""
     Job Description:
     {jd_text}
