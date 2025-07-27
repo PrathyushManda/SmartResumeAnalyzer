@@ -1,121 +1,66 @@
-# SmartResume Analyzer
+SmartResume Analyzer
 
-**AI-Powered Resume and Job Description Matching with Interactive Improvement Tips**
+A modern, AI-driven platform to optimize your job search by matching resumes with job descriptions, highlighting strengths and gaps, and offering actionable improvement tips through an interactive web interface.
 
----
+🔎 Features
 
-## 🔍 Project Overview
+Resume & Job Description Upload: Drag-and-drop or browse to upload PDF/DOCX files (up to 200 MB each).
 
-SmartResume Analyzer is a two‐component Python application that empowers job seekers by automatically parsing their resumes and job descriptions, computing a match score, highlighting gaps, and generating actionable improvement tips. The frontend is built with Streamlit for an interactive UI, while the backend uses FastAPI, LangChain embeddings, and Pinecone vector search for AI-driven analysis.
+Overall Match Score: Calculates a single percentage reflecting resume-to-job alignment.
 
-## 🚀 Key Features
+Section-Level Breakdown: Detailed scores for Skills, Experience, and Education.
 
-1. **Resume & JD Upload**
+Keyword Extraction & Highlighting: Identifies key terms in the JD, highlights matches in green and gaps in red within your resume text.
 
-   * Drag-and-drop or browse to upload PDF/DOCX files (up to 200 MB).
-   * Supports simultaneous resume + job-description input.
+Interactive Resume Editor: Apply AI-generated improvement tips inline with undo/redo history.
 
-2. **Match Percentage & Section Breakdown**
+Visual Analytics: Bar charts for section scores, dual word clouds for matched vs. missing keywords, and a timeline slider to filter experiences by year.
 
-   * Calculates an overall match score (% similarity) between resume and JD.
-   * Provides section-level scores (Skills, Experience, Education).
+PDF Report Export: Generate and download a comprehensive PDF summary of your analysis.
 
-3. **Keyword Extraction & Highlighting**
+🚀 Quick Start
 
-   * Identifies top keywords in the job description and checks which appear in the resume.
-   * Highlights matched keywords in green and missing keywords in red.
+Clone the repository
 
-4. **Interactive Resume Editor**
+git clone https://github.com/<your-username>/SmartResumeAnalyzer.git
+cd SmartResumeAnalyzer
 
-   * Built-in text area allows you to apply AI-generated improvement tips inline.
-   * Undo/Redo history for focused editing.
+Install dependencies
 
-5. **Visual Analytics**
+pip install -r requirements.txt
 
-   * Bar charts for section match scores.
-   * Dual word clouds for missing vs. matched keywords.
-   * Experience timeline slider to filter resume content by year.
+Configure environment variables
 
-6. **PDF Export & Sharing**
+export OPENAI_API_KEY="sk-..."
+export PINECONE_API_KEY="..."
+export PINECONE_ENV="us-west1-gcp"
 
-   * Generate and download a styled PDF report summarizing scores, highlights, and tips.
+Run the application
 
-## 🏗️ Architecture & Tech Stack
+uvicorn main:app --reload
+streamlit run app.py
 
-* **Backend**: Python, FastAPI, Uvicorn
-* **AI & Embeddings**: OpenAI API + LangChain
-* **Vector Database**: Pinecone (Serverless index)
-* **Resume Parsing**: `pdfminer` & `python-docx`
-* **Frontend**: Streamlit, Matplotlib, WordCloud
-* **Containerization**: (Optional) Docker
+(Optional) Run with Docker
 
-## 📦 Installation & Setup
+docker build -t smartresume-analyzer .
+docker run -p 8501:8501 smartresume-analyzer
 
-1. **Clone the repo**
+⚙️ Configuration
 
-   ```bash
-   git clone https://github.com/<your-username>/SmartResumeAnalyzer.git
-   cd SmartResumeAnalyzer
-   ```
+OPENAI_API_KEY: Your OpenAI secret key for embeddings.
 
-2. **Create & activate a virtual environment**
+PINECONE_API_KEY: Your Pinecone API key.
 
-   * macOS / Linux
+PINECONE_ENV: Your Pinecone region (e.g., us-west1-gcp).
 
-     ```bash
-     python3 -m venv .venv
-     source .venv/bin/activate
-     ```
+📂 Project Structure
 
-   * Windows (PowerShell)
-
-     ```powershell
-     python -m venv .venv
-     Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
-     .\.venv\Scripts\Activate.ps1
-     ```
-
-3. **Install dependencies**
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Configure environment variables**
-   Create a `.env` file in the root or export directly:
-
-   ```ini
-   OPENAI_API_KEY=sk-...
-   PINECONE_API_KEY=...
-   PINECONE_ENV=us-west1-gcp   # Your Pinecone region
-   ```
-
-5. **Run the backend API**
-
-   ```bash
-   uvicorn main:app --reload
-   ```
-
-   Backend runs on **[http://localhost:8000](http://localhost:8000)**.
-
-6. **Run the Streamlit frontend**
-   In a separate terminal with `.venv` active:
-
-   ```bash
-   streamlit run app.py
-   ```
-
-   UI opens at **[http://localhost:8501](http://localhost:8501)**.
-
-## 📂 Project Structure
-
-```text
 ├── app.py            # Streamlit frontend UI
 ├── main.py           # FastAPI backend entrypoint
-├── scorer.py         # AI & Pinecone logic
-├── resume_parser.py  # PDF/DOCX parsing
-├── tips_generator.py # Improvement-tip logic (optional)
+├── scorer.py         # AI & vector-search logic
+├── resume_parser.py  # PDF/DOCX parsing utility
+├── tips_generator.py # Improvement-tip engine
 ├── requirements.txt  # Python dependencies
-├── settings.json     # UI configuration
-└── .venv/            # Virtual environment (gitignored)
-```
+├── settings.json     # UI theming config
+└── .venv/            # Local Python environment (ignored)
+
