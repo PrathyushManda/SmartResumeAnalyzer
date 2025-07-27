@@ -1,0 +1,121 @@
+# SmartResume Analyzer
+
+**AI-Powered Resume and Job Description Matching with Interactive Improvement Tips**
+
+---
+
+## 🔍 Project Overview
+
+SmartResume Analyzer is a two‐component Python application that empowers job seekers by automatically parsing their resumes and job descriptions, computing a match score, highlighting gaps, and generating actionable improvement tips. The frontend is built with Streamlit for an interactive UI, while the backend uses FastAPI, LangChain embeddings, and Pinecone vector search for AI-driven analysis.
+
+## 🚀 Key Features
+
+1. **Resume & JD Upload**
+
+   * Drag-and-drop or browse to upload PDF/DOCX files (up to 200 MB).
+   * Supports simultaneous resume + job-description input.
+
+2. **Match Percentage & Section Breakdown**
+
+   * Calculates an overall match score (% similarity) between resume and JD.
+   * Provides section-level scores (Skills, Experience, Education).
+
+3. **Keyword Extraction & Highlighting**
+
+   * Identifies top keywords in the job description and checks which appear in the resume.
+   * Highlights matched keywords in green and missing keywords in red.
+
+4. **Interactive Resume Editor**
+
+   * Built-in text area allows you to apply AI-generated improvement tips inline.
+   * Undo/Redo history for focused editing.
+
+5. **Visual Analytics**
+
+   * Bar charts for section match scores.
+   * Dual word clouds for missing vs. matched keywords.
+   * Experience timeline slider to filter resume content by year.
+
+6. **PDF Export & Sharing**
+
+   * Generate and download a styled PDF report summarizing scores, highlights, and tips.
+
+## 🏗️ Architecture & Tech Stack
+
+* **Backend**: Python, FastAPI, Uvicorn
+* **AI & Embeddings**: OpenAI API + LangChain
+* **Vector Database**: Pinecone (Serverless index)
+* **Resume Parsing**: `pdfminer` & `python-docx`
+* **Frontend**: Streamlit, Matplotlib, WordCloud
+* **Containerization**: (Optional) Docker
+
+## 📦 Installation & Setup
+
+1. **Clone the repo**
+
+   ```bash
+   git clone https://github.com/<your-username>/SmartResumeAnalyzer.git
+   cd SmartResumeAnalyzer
+   ```
+
+2. **Create & activate a virtual environment**
+
+   * macOS / Linux
+
+     ```bash
+     python3 -m venv .venv
+     source .venv/bin/activate
+     ```
+
+   * Windows (PowerShell)
+
+     ```powershell
+     python -m venv .venv
+     Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+     .\.venv\Scripts\Activate.ps1
+     ```
+
+3. **Install dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Configure environment variables**
+   Create a `.env` file in the root or export directly:
+
+   ```ini
+   OPENAI_API_KEY=sk-...
+   PINECONE_API_KEY=...
+   PINECONE_ENV=us-west1-gcp   # Your Pinecone region
+   ```
+
+5. **Run the backend API**
+
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+   Backend runs on **[http://localhost:8000](http://localhost:8000)**.
+
+6. **Run the Streamlit frontend**
+   In a separate terminal with `.venv` active:
+
+   ```bash
+   streamlit run app.py
+   ```
+
+   UI opens at **[http://localhost:8501](http://localhost:8501)**.
+
+## 📂 Project Structure
+
+```text
+├── app.py            # Streamlit frontend UI
+├── main.py           # FastAPI backend entrypoint
+├── scorer.py         # AI & Pinecone logic
+├── resume_parser.py  # PDF/DOCX parsing
+├── tips_generator.py # Improvement-tip logic (optional)
+├── requirements.txt  # Python dependencies
+├── settings.json     # UI configuration
+└── .venv/            # Virtual environment (gitignored)
+```
