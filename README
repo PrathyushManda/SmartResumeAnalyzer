@@ -1,0 +1,60 @@
+# SmartResume Analyzer
+A modern, AI-driven platform to optimize your job search by matching resumes with job descriptions, highlighting strengths and gaps, and offering actionable improvement tips through an interactive web interface.
+
+🔎 **Features**
+Resume & Job Description Upload: Drag-and-drop or browse to upload PDF/DOCX files (up to 200 MB each).
+Overall Match Score: Calculates a single percentage reflecting resume-to-job alignment.
+Section-Level Breakdown: Detailed scores for Skills, Experience, and Education.
+Keyword Extraction & Highlighting: Identifies key terms in the JD, highlights matches in green and gaps in red within your resume text.
+Interactive Resume Editor: Apply AI-generated improvement tips inline with undo/redo history.
+Visual Analytics: Bar charts for section scores, dual word clouds for matched vs. missing keywords, and a timeline slider to filter experiences by year.
+PDF Report Export: Generate and download a comprehensive PDF summary of your analysis.
+
+🚀 **Quick Start**
+**Clone the repository**
+```bash
+git clone https://github.com/<your-username>/SmartResumeAnalyzer.git
+cd SmartResumeAnalyzer
+```
+
+**Install dependencies**
+```bash
+pip install -r requirements.txt
+```
+
+**Configure environment variables**
+```bash
+export OPENAI_API_KEY="sk-..."
+export PINECONE_API_KEY="..."
+export PINECONE_ENV="us-west1-gcp"
+```
+
+**Run the application**
+```bash
+uvicorn main:app --reload
+streamlit run app.py
+```
+
+**(Optional) Run with Docker**
+```bash
+docker build -t smartresume-analyzer .
+docker run -p 8501:8501 smartresume-analyzer
+```
+
+⚙️ **Configuration**
+**OPENAI_API_KEY**: Your OpenAI secret key for embeddings.
+**PINECONE_API_KEY**: Your Pinecone API key.
+**PINECONE_ENV**: Your Pinecone region (e.g., us-west1-gcp).
+
+📂 **Project Structure**
+```
+├── app.py            # Streamlit frontend UI
+├── main.py           # FastAPI backend entrypoint
+├── scorer.py         # AI & vector-search logic
+├── resume_parser.py  # PDF/DOCX parsing utility
+├── tips_generator.py # Improvement-tip engine
+├── requirements.txt  # Python dependencies
+├── settings.json     # UI theming config
+└── .venv/            # Local Python environment (ignored)
+```
+
